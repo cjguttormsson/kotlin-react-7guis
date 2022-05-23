@@ -1,0 +1,19 @@
+p {
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+canvas {
+  margin-left: 40px;
+  margin-top: 40px;
+  border: 1px solid;
+  border-color: black;
+}
+
+circle:hover {
+  fill: gray
+}
+
+select {
+  width: 10em;
+}
