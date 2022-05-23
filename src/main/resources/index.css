@@ -3,11 +3,18 @@ p {
   margin-top: 40px;
 }
 
-canvas {
-  margin-left: 40px;
-  margin-top: 40px;
-  border: 1px solid;
-  border-color: black;
+input.input-invalid {
+  background-color: lightpink;
+}
+
+option.filtered {
+  display: none;
+}
+
+div#circle-box {
+  width: 640px;
+  height: 480px;
+  outline : 1px solid black;
 }
 
 circle:hover {

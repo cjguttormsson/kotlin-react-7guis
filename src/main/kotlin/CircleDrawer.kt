@@ -1,8 +1,3 @@
-import csstype.LineStyle
-import csstype.NamedColor
-import csstype.Outline
-import csstype.px
-import emotion.react.css
 import react.FC
 import react.Props
 import react.dom.html.InputType
@@ -35,11 +30,7 @@ val CircleDrawer = FC<Props> {
     }
     p {
         div {
-            css {
-                width = 640.px
-                height = 480.px
-                outline = Outline(1.px, LineStyle.solid, NamedColor.black)
-            }
+            id = "circle-box"
             svg {
                 viewBox = "0 0 640 480"
                 xmlns = "http://www.w3.org/2000/svg"

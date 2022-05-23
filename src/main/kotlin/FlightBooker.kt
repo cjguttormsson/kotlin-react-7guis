@@ -1,5 +1,4 @@
-import csstype.NamedColor
-import emotion.react.css
+import csstype.ClassName
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
@@ -56,9 +55,7 @@ val FlightBooker = FC<Props> {
     }
     p {
         input {
-            css {
-                backgroundColor = if (dateFmt.matches(departureDate)) null else NamedColor.lightpink
-            }
+            className = ClassName(if (dateFmt.matches(departureDate)) "input-valid" else "input-invalid")
             value = departureDate
             onChange = { e ->
                 departureDate = e.target.value
@@ -67,10 +64,8 @@ val FlightBooker = FC<Props> {
     }
     p {
         input {
-            css {
-                backgroundColor =
-                    if (dateFmt.matches(returnDate) || flightType != FlightType.RoundTrip) null else NamedColor.lightpink
-            }
+            className =
+                ClassName(if (dateFmt.matches(returnDate) || flightType != FlightType.RoundTrip) "input-valid" else "input-invalid")
             disabled = (flightType != FlightType.RoundTrip)
             value = if (flightType == FlightType.RoundTrip) returnDate else departureDate
             onChange = { e ->

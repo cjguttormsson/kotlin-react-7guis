@@ -1,5 +1,4 @@
-import csstype.None
-import emotion.react.css
+import csstype.ClassName
 import org.w3c.dom.HTMLSelectElement
 import react.FC
 import react.Props
@@ -41,10 +40,7 @@ val CRUD = FC<Props> {
             size = 10
             for ((name, surname) in names) {
                 option {
-                    css {
-                        // This approach keeps the indices in the select element in sync with the list of names
-                        display = if (surname.startsWith(filterPrefix)) null else None.none
-                    }
+                    className = ClassName(if (surname.startsWith(filterPrefix)) "unfiltered" else "filtered")
                     +"$surname, $name"
                 }
             }
