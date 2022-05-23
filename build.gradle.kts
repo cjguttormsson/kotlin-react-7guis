@@ -1,9 +1,9 @@
 plugins {
-    kotlin("js") version "1.6.20"
+    kotlin("js") version "1.6.21"
 }
 
 group = "me.cjgj"
-version = "1.0.0"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -14,11 +14,11 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:$kotlinReactVersion")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.9.0-pre.338")
 }
 
 kotlin {
-    js(LEGACY) {
+    js(IR) {
         binaries.executable()
         browser {
             commonWebpackConfig {
