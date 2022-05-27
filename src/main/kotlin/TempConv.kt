@@ -11,14 +11,18 @@ val TemperatureConverter = FC<Props> {
     var fahrenheit: String by useState("-40.0")
 
     fun trySetC(celsiusString: String, valueTransform: (Double) -> Double = { it }) =
-        celsiusString.toDoubleOrNull()?.also {
-            celsius = valueTransform(it).asDynamic().toFixed(1) as String
-        }
+         celsiusString.toDoubleOrNull()?.let {
+            val fixedCelsius = valueTransform(it).asDynamic().toFixed(1) as String
+            celsius = fixedCelsius
+            return fixedCelsius
+        } ?: ""
 
     fun trySetF(fahrenheitString: String, valueTransform: (Double) -> Double = { it }) =
-        fahrenheitString.toDoubleOrNull()?.also {
-            fahrenheit = valueTransform(it).asDynamic().toFixed(1) as String
-        }
+        fahrenheitString.toDoubleOrNull()?.let {
+            val fixedFahrenheit = valueTransform(it).asDynamic().toFixed(1) as String
+            fahrenheit = fixedFahrenheit
+            return fixedFahrenheit
+        } ?: ""
 
     p {
         input {
@@ -30,7 +34,7 @@ val TemperatureConverter = FC<Props> {
                 trySetF(e.target.value, valueTransform = ::cToF)
             }
             onBlur = {
-                trySetC(celsius)
+                trySetF(trySetC(celsius), valueTransform = ::cToF)
             }
         }
         +" Celsius = "
@@ -43,7 +47,7 @@ val TemperatureConverter = FC<Props> {
                 trySetC(e.target.value, valueTransform = ::fToC)
             }
             onBlur = {
-                trySetF(fahrenheit)
+                trySetC(trySetF(fahrenheit), valueTransform = ::fToC)
             }
         }
         +" Fahrenheit"
