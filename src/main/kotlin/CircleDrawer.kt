@@ -30,7 +30,6 @@ val CircleDrawer = FC<Props> {
     }
     p {
         div {
-            id = "circle-box"
             svg {
                 viewBox = "0 0 640 480"
                 xmlns = "http://www.w3.org/2000/svg"

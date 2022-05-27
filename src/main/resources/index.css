@@ -11,7 +11,7 @@ option.filtered {
   display: none;
 }
 
-div#circle-box {
+svg {
   width: 640px;
   height: 480px;
   outline : 1px solid black;
