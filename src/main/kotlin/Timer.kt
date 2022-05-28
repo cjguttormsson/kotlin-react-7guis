@@ -32,7 +32,10 @@ val Timer = FC<Props> {
         +"Elapsed Time: "
         progress {
             value = (currentTime - startTime).roundToInt().toString()
+            console.log("Before toDouble $duration")
+            console.log(Duration.INFINITE)
             max = duration.toDouble(DurationUnit.MILLISECONDS)
+            console.log("After toDouble")
         }
     }
     p {
@@ -47,6 +50,7 @@ val Timer = FC<Props> {
             max = 60_000.0 // ms
             value = duration.toDouble(DurationUnit.MILLISECONDS).toString()
             onChange = { e ->
+                console.log(e.target.value)
                 e.target.value.toDoubleOrNull()?.roundToInt()?. also { duration = it.milliseconds }
             }
         }
