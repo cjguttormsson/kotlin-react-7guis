@@ -1,11 +1,12 @@
 import csstype.ClassName
 import react.FC
 import react.Props
+import react.dom.aria.ariaDescribedBy
+import react.dom.aria.ariaLabel
 import react.dom.html.InputType
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
 import react.dom.html.ReactHTML.span
-import react.key
 import react.useState
 
 val TemperatureConverter = FC<Props> {
@@ -29,9 +30,9 @@ val TemperatureConverter = FC<Props> {
     div {
         className = ClassName("input-group m-2")
         input {
+            ariaDescribedBy = "label-celsius"
+            ariaLabel = "Celsius"
             className = ClassName("form-control")
-            key = "input-c"
-            id = "input-c"
             type = InputType.text
             value = celsius
             onChange = { e ->
@@ -43,6 +44,7 @@ val TemperatureConverter = FC<Props> {
             }
         }
         span {
+            id = "label-celsius"
             className = ClassName("input-group-text")
             +" degrees Celsius "
         }
@@ -51,9 +53,9 @@ val TemperatureConverter = FC<Props> {
             +" = "
         }
         input {
+            ariaDescribedBy = "label-fahrenheit"
+            ariaLabel = "Fahrenheit"
             className = ClassName("form-control")
-            key = "input-f"
-            id = "input-f"
             type = InputType.text
             value = fahrenheit
             onChange = { e ->
@@ -65,6 +67,7 @@ val TemperatureConverter = FC<Props> {
             }
         }
         span {
+            id = "label-fahrenheit"
             className = ClassName("input-group-text")
             +"degrees Fahrenheit"
         }
