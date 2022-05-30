@@ -1,22 +1,22 @@
+import csstype.ClassName
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
-import react.dom.html.ReactHTML.p
+import react.dom.html.ReactHTML.h4
 import react.useState
 
 
 val Counter = FC<Props> {
     val (count, setCount) = useState(0)
 
-    p {
+    h4 {
         +"The count is $count"
     }
-    p {
-        button {
-            +"Increment"
-            onClick = {
-                setCount { c -> c + 1 }
-            }
+    button {
+        className = ClassName("btn btn-primary")
+        +"Increment"
+        onClick = {
+            setCount { c -> c + 1 }
         }
     }
 }

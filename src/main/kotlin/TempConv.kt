@@ -1,8 +1,10 @@
+import csstype.ClassName
 import react.FC
 import react.Props
 import react.dom.html.InputType
+import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
-import react.dom.html.ReactHTML.p
+import react.dom.html.ReactHTML.span
 import react.key
 import react.useState
 
@@ -11,7 +13,7 @@ val TemperatureConverter = FC<Props> {
     var fahrenheit: String by useState("-40.0")
 
     fun trySetC(celsiusString: String, valueTransform: (Double) -> Double = { it }) =
-         celsiusString.toDoubleOrNull()?.let {
+        celsiusString.toDoubleOrNull()?.let {
             val fixedCelsius = valueTransform(it).asDynamic().toFixed(1) as String
             celsius = fixedCelsius
             return fixedCelsius
@@ -24,9 +26,12 @@ val TemperatureConverter = FC<Props> {
             return fixedFahrenheit
         } ?: ""
 
-    p {
+    div {
+        className = ClassName("input-group m-2")
         input {
-            key = "inputC"
+            className = ClassName("form-control")
+            key = "input-c"
+            id = "input-c"
             type = InputType.text
             value = celsius
             onChange = { e ->
@@ -37,9 +42,18 @@ val TemperatureConverter = FC<Props> {
                 trySetF(trySetC(celsius), valueTransform = ::cToF)
             }
         }
-        +" Celsius = "
+        span {
+            className = ClassName("input-group-text")
+            +" degrees Celsius "
+        }
+        span {
+            className = ClassName("input-group-text")
+            +" = "
+        }
         input {
-            key = "inputF"
+            className = ClassName("form-control")
+            key = "input-f"
+            id = "input-f"
             type = InputType.text
             value = fahrenheit
             onChange = { e ->
@@ -50,8 +64,12 @@ val TemperatureConverter = FC<Props> {
                 trySetC(trySetF(fahrenheit), valueTransform = ::fToC)
             }
         }
-        +" Fahrenheit"
+        span {
+            className = ClassName("input-group-text")
+            +"degrees Fahrenheit"
+        }
     }
+
 }
 
 fun cToF(c: Double) = c * (9.0 / 5) + 32.0
