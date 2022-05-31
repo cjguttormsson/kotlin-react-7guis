@@ -22,9 +22,10 @@ val guis = listOf(
 
 /** Container component to select a GUI */
 val Launcher = FC<Props> {
-    val (selectedGui, setSelectedGui) = useState { guis.first().second!! }
+    val (selectedGui, setSelectedGui) = useState { Counter }
 
     div {
+        className = ClassName("mb-3")
         ul {
             className = ClassName("nav nav-tabs")
             guis.forEach { (name, component) ->
@@ -47,10 +48,7 @@ val Launcher = FC<Props> {
                 }
             }
         }
-
-        div {
-            className = ClassName("m-2")
-            selectedGui { }
-        }
     }
+
+    selectedGui { }
 }
