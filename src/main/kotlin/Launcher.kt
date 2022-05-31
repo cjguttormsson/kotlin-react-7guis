@@ -10,37 +10,39 @@ import react.dom.html.ReactHTML.ul
 import react.key
 import react.useState
 
-enum class Gui(val displayName: String, val component: FC<*>) {
-    CounterGui("Counter", Counter), TemperatureConverterGui(
-        "Temperature Converter",
-        TemperatureConverter
-    ),
-    FlightBookerGui("Flight Booker", FlightBooker), TimerGui("Timer", Timer), CRUDGui(
-        "CRUD",
-        CRUD
-    ),
-    CircleDrawerGui("Circle Drawer", CircleDrawer)
-}
+val guis = listOf(
+    "Counter" to Counter,
+    "Temperature Converter" to TemperatureConverter,
+    "Flight Booker" to FlightBooker,
+    "Timer" to Timer,
+    "CRUD" to CRUD,
+    "Circle Drawer" to CircleDrawer,
+    "Cells" to null
+)
 
 /** Container component to select a GUI */
 val Launcher = FC<Props> {
-    var selectedGui: Int by useState(0)
+    val (selectedGui, setSelectedGui) = useState { guis.first().second!! }
 
     div {
         ul {
             className = ClassName("nav nav-tabs")
-            for (gui in Gui.values()) {
+            guis.forEach { (name, component) ->
                 li {
                     className = ClassName("nav-item")
-                    key = gui.ordinal.toString()
+                    key = name
                     a {
-                        className = ClassName("nav-link" + if (selectedGui == gui.ordinal) " active" else "")
-                        if (selectedGui == gui.ordinal) {
+                        className = ClassName(
+                            "nav-link" + if (selectedGui == component) " active" else "" + if (component == null) " disabled" else ""
+                        )
+                        if (selectedGui == component) {
                             ariaCurrent = AriaCurrent.page
                         }
                         href = "#"
-                        onClick = { selectedGui = gui.ordinal }
-                        +gui.displayName
+                        if (component != null) {
+                            onClick = { setSelectedGui { component } }
+                        }
+                        +name
                     }
                 }
             }
@@ -48,7 +50,7 @@ val Launcher = FC<Props> {
 
         div {
             className = ClassName("m-2")
-            Gui.values()[selectedGui].component { }
+            selectedGui { }
         }
     }
 }
