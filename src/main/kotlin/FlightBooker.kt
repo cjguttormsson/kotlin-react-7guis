@@ -1,10 +1,14 @@
 import csstype.ClassName
 import react.FC
 import react.Props
+import react.dom.html.ButtonType
+import react.dom.html.InputType
 import react.dom.html.ReactHTML.button
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.form
 import react.dom.html.ReactHTML.input
+import react.dom.html.ReactHTML.label
 import react.dom.html.ReactHTML.option
-import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.select
 import react.useState
 import kotlin.js.Date
@@ -39,47 +43,85 @@ val FlightBooker = FC<Props> {
     })
     var returnDate: String by useState(departureDate)
 
-    p {
-        select {
-            option {
-                +FlightType.OneWay.displayName
+    form {
+        className = ClassName("needs-validation m-2")
+        noValidate = true
+
+        div {
+            className = ClassName("form-row justify-content-center")
+
+            div {
+                className = ClassName("form-group col-sm-6")
+                label {
+                    +"Flight Type"
+                }
+                select {
+                    className = ClassName("form-control form-control-lg")
+                    option {
+                        +FlightType.OneWay.displayName
+                    }
+                    option {
+                        +FlightType.RoundTrip.displayName
+                    }
+                    value = flightType.displayName
+                    onChange = { e ->
+                        FlightType.fromDisplayName(e.target.value)?.also { flightType = it }
+                    }
+                }
             }
-            option {
-                +FlightType.RoundTrip.displayName
+
+        }
+
+        div {
+            className = ClassName("form-row justify-content-center")
+
+            div {
+                className = ClassName("form-group col-sm-3")
+                label {
+                    +"Departure Date"
+                }
+                input {
+                    className = ClassName("form-control form-control-lg")
+                    type = InputType.text
+                    value = departureDate
+                    onChange = { e ->
+                        departureDate = e.target.value
+                    }
+                }
             }
-            value = flightType.displayName
-            onChange = { e ->
-                FlightType.fromDisplayName(e.target.value)?.also { flightType = it }
+            div {
+                className = ClassName("form-group col-sm-3")
+                label {
+                    +"Return Date"
+                }
+                input {
+                    className = ClassName("form-control form-control-lg")
+                    disabled = (flightType != FlightType.RoundTrip)
+                    type = InputType.text
+                    value = if (flightType == FlightType.RoundTrip) returnDate else departureDate
+                    onChange = { e ->
+                        returnDate = e.target.value
+                    }
+                }
             }
         }
-    }
-    p {
-        input {
-            className = ClassName(if (dateFmt.matches(departureDate)) "input-valid" else "input-invalid")
-            value = departureDate
-            onChange = { e ->
-                departureDate = e.target.value
+
+        div {
+            className = ClassName("form-row justify-content-center")
+
+            div {
+                className = ClassName("form-group col-sm-3")
+                button {
+                    className = ClassName("form-control form-control-lg")
+                    +"Book Flight"
+                    type = ButtonType.submit
+                    disabled = !datesAreValid(
+                        departureDate, if (flightType == FlightType.RoundTrip) returnDate else departureDate
+                    )
+                    onClick = { console.log("Booked flight from $departureDate to $returnDate") }
+                }
             }
         }
-    }
-    p {
-        input {
-            className =
-                ClassName(if (dateFmt.matches(returnDate) || flightType != FlightType.RoundTrip) "input-valid" else "input-invalid")
-            disabled = (flightType != FlightType.RoundTrip)
-            value = if (flightType == FlightType.RoundTrip) returnDate else departureDate
-            onChange = { e ->
-                returnDate = e.target.value
-            }
-        }
-    }
-    p {
-        button {
-            +"Book Flight"
-            disabled = !datesAreValid(
-                departureDate, if (flightType == FlightType.RoundTrip) returnDate else departureDate
-            )
-            onClick = { console.log("Booked flight from $departureDate to $returnDate") }
-        }
+
     }
 }
