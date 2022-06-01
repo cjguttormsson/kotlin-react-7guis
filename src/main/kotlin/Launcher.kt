@@ -25,12 +25,12 @@ val Launcher = FC<Props> {
     val (selectedGui, setSelectedGui) = useState { Counter }
 
     div {
-        className = ClassName("mb-3")
+        className = "mb-3".cn
         ul {
-            className = ClassName("nav nav-tabs")
+            className = "nav nav-tabs".cn
             guis.forEach { (name, component) ->
                 li {
-                    className = ClassName("nav-item")
+                    className = "nav-item".cn
                     key = name
                     a {
                         className = ClassName(

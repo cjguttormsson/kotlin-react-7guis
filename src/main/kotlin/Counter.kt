@@ -1,4 +1,3 @@
-import csstype.ClassName
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.button
@@ -13,7 +12,7 @@ val Counter = FC<Props> {
         +"The count is $count"
     }
     button {
-        className = ClassName("btn btn-primary")
+        className = "btn btn-primary".cn
         +"Increment"
         onClick = {
             setCount { c -> c + 1 }

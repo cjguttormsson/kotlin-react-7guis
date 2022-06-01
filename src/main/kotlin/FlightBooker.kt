@@ -1,4 +1,3 @@
-import csstype.ClassName
 import react.FC
 import react.Props
 import react.dom.html.ButtonType
@@ -44,15 +43,15 @@ val FlightBooker = FC<Props> {
 
     var returnDate: String by useState(departureDate)
     div {
-        className = ClassName("row justify-content-center m-3")
+        className = "row justify-content-center m-3".cn
 
         div {
-            className = ClassName("form-group col-sm-6")
+            className = "form-group col-sm-6".cn
             label {
                 +"Flight Type"
             }
             select {
-                className = ClassName("form-control form-control-lg")
+                className = "form-control form-control-lg".cn
                 option {
                     +FlightType.OneWay.displayName
                 }
@@ -69,18 +68,15 @@ val FlightBooker = FC<Props> {
     }
 
     div {
-        className = ClassName(
-            "row" +
-                    " justify-content-center m-3"
-        )
+        className = "row justify-content-center m-3".cn
 
         div {
-            className = ClassName("form-group col-sm-3")
+            className = "form-group col-sm-3".cn
             label {
                 +"Departure Date"
             }
             input {
-                className = ClassName("form-control form-control-lg")
+                className = "form-control form-control-lg".cn
                 type = InputType.text
                 value = departureDate
                 onChange = { e ->
@@ -89,12 +85,12 @@ val FlightBooker = FC<Props> {
             }
         }
         div {
-            className = ClassName("form-group col-sm-3")
+            className = "form-group col-sm-3".cn
             label {
                 +"Return Date"
             }
             input {
-                className = ClassName("form-control form-control-lg")
+                className = "form-control form-control-lg".cn
                 disabled = (flightType != FlightType.RoundTrip)
                 type = InputType.text
                 value = if (flightType == FlightType.RoundTrip) returnDate else departureDate
@@ -106,12 +102,12 @@ val FlightBooker = FC<Props> {
     }
 
     div {
-        className = ClassName("row justify-content-center m-3")
+        className = "row justify-content-center m-3".cn
 
         div {
-            className = ClassName("form-group col-sm-3")
+            className = "form-group col-sm-3".cn
             button {
-                className = ClassName("form-control form-control-lg")
+                className = "form-control form-control-lg".cn
                 +"Book Flight"
                 type = ButtonType.submit
                 disabled = !datesAreValid(
@@ -124,7 +120,7 @@ val FlightBooker = FC<Props> {
 
     if (bookMessage != null) {
         div {
-            className = ClassName("row justify-content-center m-3")
+            className = "row justify-content-center m-3".cn
             +bookMessage!!
         }
     }
