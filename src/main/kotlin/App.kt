@@ -1,3 +1,4 @@
+import csstype.ClassName
 import kotlinx.browser.document
 import react.StrictMode
 import react.create
@@ -8,3 +9,5 @@ fun main() {
         Launcher {}
     })
 }
+
+inline val String.cn get() = ClassName(this)
