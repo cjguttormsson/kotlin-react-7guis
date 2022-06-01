@@ -14,15 +14,14 @@ import kotlin.js.Date
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.DurationUnit
 
 val Timer = FC<Props> {
-    var startTime: Double by useState(Date.now())
-    var currentTime: Double by useState(startTime)
-    var duration: Duration by useState(10_000.milliseconds)
+    var startTimeMs: Double by useState(Date.now())
+    var currentTimeMs: Double by useState(startTimeMs)
+    var durationMs: Double by useState(10_000.0)
 
     useEffectOnce {
-        val timeout: Timeout = setInterval(100.milliseconds) { currentTime = Date.now() }
+        val timeout: Timeout = setInterval(16.milliseconds) { currentTimeMs = Date.now() }
         cleanup {
             clearInterval(timeout)
         }
@@ -31,15 +30,15 @@ val Timer = FC<Props> {
     p {
         +"Elapsed Time: "
         progress {
-            value = (currentTime - startTime).roundToInt().toString()
-            console.log("Before toDouble $duration")
+            value = (currentTimeMs - startTimeMs).roundToInt().toString()
+            console.log("Before toDouble $durationMs")
             console.log(Duration.INFINITE)
-            max = duration.toDouble(DurationUnit.MILLISECONDS)
+            max = durationMs
             console.log("After toDouble")
         }
     }
     p {
-        +(((currentTime - startTime) / 1000).asDynamic().toFixed(1) as String)
+        +(((currentTimeMs - startTimeMs) / 1000).asDynamic().toFixed(1) as String)
         +" s"
     }
     p {
@@ -48,10 +47,10 @@ val Timer = FC<Props> {
             type = InputType.range
             min = 1_000.0 // ms
             max = 60_000.0 // ms
-            value = duration.toDouble(DurationUnit.MILLISECONDS).toString()
+            value = durationMs.toString()
             onChange = { e ->
                 console.log(e.target.value)
-                e.target.value.toDoubleOrNull()?.roundToInt()?. also { duration = it.milliseconds }
+                e.target.value.toDoubleOrNull()?.also { durationMs = it }
             }
         }
     }
@@ -59,7 +58,7 @@ val Timer = FC<Props> {
         button {
             +"Reset"
             onClick = {
-                startTime = Date.now()
+                startTimeMs = Date.now()
             }
         }
     }
