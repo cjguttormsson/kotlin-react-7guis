@@ -11,3 +11,9 @@ fun main() {
 }
 
 inline val String.cn get() = ClassName(this)
+
+fun <T> List<T>.replacingElement(before: T, after: T): List<T> {
+    val temp = this.toMutableList()
+    temp[indexOf(before)] = after
+    return temp.toList()
+}
