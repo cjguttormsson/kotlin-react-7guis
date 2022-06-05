@@ -45,7 +45,7 @@ val TemperatureConverter = FC<Props> {
         span {
             id = "label-celsius"
             className = "input-group-text".cn
-            +" degrees Celsius "
+            +"° Celsius "
         }
         span {
             className = "input-group-text".cn
@@ -68,7 +68,7 @@ val TemperatureConverter = FC<Props> {
         span {
             id = "label-fahrenheit"
             className = "input-group-text".cn
-            +"degrees Fahrenheit"
+            +"° Fahrenheit"
         }
     }
 
