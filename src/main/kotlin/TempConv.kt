@@ -27,48 +27,54 @@ val TemperatureConverter = FC<Props> {
         } ?: ""
 
     div {
-        className = "input-group m-2".cn
-        input {
-            ariaDescribedBy = "label-celsius"
-            ariaLabel = "Celsius"
-            className = "form-control".cn
-            type = InputType.text
-            value = celsius
-            onChange = { e ->
-                celsius = e.target.value
-                trySetF(e.target.value, valueTransform = ::cToF)
+        className = "row justify-content-center".cn
+        div {
+            className = "col-6".cn
+            div {
+                className = "input-group m-2".cn
+                input {
+                    ariaDescribedBy = "label-celsius"
+                    ariaLabel = "Celsius"
+                    className = "form-control".cn
+                    type = InputType.text
+                    value = celsius
+                    onChange = { e ->
+                        celsius = e.target.value
+                        trySetF(e.target.value, valueTransform = ::cToF)
+                    }
+                    onBlur = {
+                        trySetF(trySetC(celsius), valueTransform = ::cToF)
+                    }
+                }
+                span {
+                    id = "label-celsius"
+                    className = "input-group-text".cn
+                    +"° Celsius "
+                }
+                span {
+                    className = "input-group-text".cn
+                    +" = "
+                }
+                input {
+                    ariaDescribedBy = "label-fahrenheit"
+                    ariaLabel = "Fahrenheit"
+                    className = "form-control".cn
+                    type = InputType.text
+                    value = fahrenheit
+                    onChange = { e ->
+                        fahrenheit = e.target.value
+                        trySetC(e.target.value, valueTransform = ::fToC)
+                    }
+                    onBlur = {
+                        trySetC(trySetF(fahrenheit), valueTransform = ::fToC)
+                    }
+                }
+                span {
+                    id = "label-fahrenheit"
+                    className = "input-group-text".cn
+                    +"° Fahrenheit"
+                }
             }
-            onBlur = {
-                trySetF(trySetC(celsius), valueTransform = ::cToF)
-            }
-        }
-        span {
-            id = "label-celsius"
-            className = "input-group-text".cn
-            +"° Celsius "
-        }
-        span {
-            className = "input-group-text".cn
-            +" = "
-        }
-        input {
-            ariaDescribedBy = "label-fahrenheit"
-            ariaLabel = "Fahrenheit"
-            className = "form-control".cn
-            type = InputType.text
-            value = fahrenheit
-            onChange = { e ->
-                fahrenheit = e.target.value
-                trySetC(e.target.value, valueTransform = ::fToC)
-            }
-            onBlur = {
-                trySetC(trySetF(fahrenheit), valueTransform = ::fToC)
-            }
-        }
-        span {
-            id = "label-fahrenheit"
-            className = "input-group-text".cn
-            +"° Fahrenheit"
         }
     }
 
